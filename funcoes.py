@@ -10,3 +10,63 @@ def transforma_base(lista):
             if lista[i] not in dicio_final.values():
                 dicio_final[dificuldade] = [lista[i]]
     return dicio_final
+
+
+
+def valida_questao(dicio):
+    diciofinal = {}
+    dicioletras = {}
+    count = 0
+    soma = 0
+    if 'titulo' not in dicio.keys(): 
+        diciofinal['titulo'] = 'nao_encontrado'
+    if 'nivel' not in dicio.keys():
+        diciofinal['nivel'] = 'nao_encontrado'
+    if 'opcoes' not in dicio.keys():
+        diciofinal['opcoes'] = 'nao_encontrado'
+    if 'correta' not in dicio.keys():
+        diciofinal['correta'] = 'nao_encontrado'
+    if len(dicio.keys())!= 4:
+        diciofinal['outro'] ='numero_chaves_invalido'
+
+    if 'titulo' in dicio.keys():
+        tit = dicio['titulo'].strip()
+        if len(tit) == 0:
+            diciofinal['titulo'] = 'vazio'
+    
+    if 'nivel' in dicio.keys():
+        if dicio['nivel']== 'facil':
+            count+=1
+        if dicio['nivel'] == 'medio':
+            count+=1
+        if dicio['nivel'] == 'dificil':
+            count+=1
+        if count!= 1:
+            diciofinal['nivel'] = 'valor_errado'
+    if 'opcoes' in dicio.keys():
+        if len(dicio['opcoes']) !=4:
+            diciofinal['opcoes'] = 'tamanho_invalido'
+
+        if len(dicio['opcoes']) ==4:
+            for letras, alternativas in dicio['opcoes'].items():
+                if 'A' in letras:
+                    if 'B' in letras:
+                        if 'C' in letras:
+                            if 'D' in letras:
+                                count+=1
+                            else:
+                                diciofinal['opcoes'] = 'chave_invalida_ou_nao_encontrada'
+                x = alternativas.strip()
+                if len(x) == 0:
+                    dicioletras[letras] = 'vazia'
+    for letra, resp in dicioletras.items():
+        if '{}' not in letra or '{}' not in resp:
+            diciofinal['opcoes'] = dicioletras
+    if 'correta' not in dicio.keys():
+        diciofinal['correta'] = 'nao_encontrado'
+    if 'correta' in dicio.keys():
+        if dicio['correta'] == 'A' or dicio['correta'] == 'B' or dicio['correta'] == 'C' or dicio['correta'] == 'D':
+            count+=1
+        else:
+            diciofinal['correta'] = 'valor_errado'
+    return diciofinal
