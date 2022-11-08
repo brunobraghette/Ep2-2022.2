@@ -70,3 +70,10 @@ def valida_questao(dicio):
         else:
             diciofinal['correta'] = 'valor_errado'
     return diciofinal
+
+
+import random
+def sorteia_questao(dicio, nivel):
+    for dificuldade, questoes in dicio.items():
+        if dificuldade == nivel:
+            return random.choice(questoes)
