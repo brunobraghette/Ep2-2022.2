@@ -90,3 +90,23 @@ def sorteia_questao_inedida(dicio, nivel, lista):
             if x not in lista:
                 lista.append(x)
                 return x
+
+
+
+def questao_para_texto(dicionario, numero):
+    saida = '''
+
+----------------------------------------
+QUESTAO {}
+
+{}
+
+RESPOSTAS:
+A: {}
+B: {}
+C: {}
+D: {}
+
+'''.format(numero, dicionario['titulo'],dicionario['opcoes']['A'], dicionario['opcoes']['B'], dicionario['opcoes']['C'],  dicionario['opcoes']['D']  )
+
+    return saida
