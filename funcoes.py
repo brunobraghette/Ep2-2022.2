@@ -11,6 +11,7 @@ def transforma_base(lista):
                 dicio_final[dificuldade] = [lista[i]]
     return dicio_final
 
+
 def valida_questao(dicio):
     diciofinal = {}
     dicioletras = {}
@@ -26,11 +27,12 @@ def valida_questao(dicio):
         diciofinal['correta'] = 'nao_encontrado'
     if len(dicio.keys())!= 4:
         diciofinal['outro'] ='numero_chaves_invalido'
+
     if 'titulo' in dicio.keys():
         tit = dicio['titulo'].strip()
         if len(tit) == 0:
             diciofinal['titulo'] = 'vazio'
-    
+    #talvez falte uma questão
     if 'nivel' in dicio.keys():
         if dicio['nivel']== 'facil':
             count+=1
@@ -67,31 +69,3 @@ def valida_questao(dicio):
         else:
             diciofinal['correta'] = 'valor_errado'
     return diciofinal
-
-def valida_questoes(lista):
-    listafinal = []
-    for i in lista:
-        a = valida_questao(i)
-        listafinal.append(a)
-    return listafinal
-
-
-import random
-def sorteia_questao(dicio, nivel):
-    for dificuldade, questoes in dicio.items():
-        if dificuldade == nivel:
-            return random.choice(questoes)
-
-import random
-def sorteia_questao_inedita(dicio, nivel, lista):
-    for dificuldade, questoes in dicio.items():
-        if dificuldade == nivel:
-            x = random.choice(questoes)
-            if x in lista:
-                while x in lista:
-                    x = random.choice(questoes)
-            if x not in lista:
-                lista.append(x)
-                return x
-
-
