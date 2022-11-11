@@ -81,3 +81,33 @@ def sorteia_questao(dicio, nivel):
     for dificuldade, questoes in dicio.items():
         if dificuldade == nivel:
             return random.choice(questoes)
+
+import random
+def sorteia_questao_inedita(dicio, nivel, lista):
+    for dificuldade, questoes in dicio.items():
+        if dificuldade == nivel:
+            x = random.choice(questoes)
+            if x in lista:
+                while x in lista:
+                    x = random.choice(questoes)
+            if x not in lista:
+                lista.append(x)
+                return x
+
+def questao_para_texto(dicionario, numero):
+    saida = '''
+
+----------------------------------------
+QUESTAO {}
+
+{}
+
+RESPOSTAS:
+A: {}
+B: {}
+C: {}
+D: {}
+
+'''.format(numero, dicionario['titulo'],dicionario['opcoes']['A'], dicionario['opcoes']['B'], dicionario['opcoes']['C'],  dicionario['opcoes']['D']  )
+
+    return saida
