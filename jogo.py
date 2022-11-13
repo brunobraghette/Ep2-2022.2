@@ -364,8 +364,15 @@ def gera_ajuda(questao):
 
 
 
+questões_são_validas = valida_questoes(quest)
+qvalidas = 0
+for i in questões_são_validas:
+    if i != {}:
+        qvalidas += 1
+if qvalidas != 0:
+    print('Há questões invalidas em sua base de dados, se elas não forem corrigidas o jogo pode funcionar com defeito')
+    
 base = transforma_base(quest)
-
 
 nome = input("Qual é o seu nome? ")
 print("Olá, {}, O Jogo funcionará da seguinte maneira: AAA INSERIR MANUAL DO JOGO".format(nome))
@@ -391,15 +398,22 @@ while jogar == "sim":
     estado = "começo"
     premios = [0,1000,5000,10000,30000,50000,100000,300000,500000,1000000]
     respondido = False
-    pergunta = sorteia_questao_inedida(base,random.choice(["facil","medio", "dificil"]), lista_perguntas)
+    dificuldade = 'facil'
+    if acertos > 6:
+        dificuldade = 'dificil'
+    elif acertos > 3: 
+        dificuldade = 'medio'
+    else:
+        dificuldade = 'facil'
+    pergunta = sorteia_questao_inedida(base,dificuldade, lista_perguntas)
     lista_perguntas.append(pergunta)
     resposta = pergunta["correta"].lower()
     numero += 1
-    pergunta = questao_para_texto(pergunta, numero)
+    perguntatxt = questao_para_texto(pergunta, numero)
     ajudado = "não"
     jogo = "inacabado"
     while respondido == False:
-        print(pergunta)
+        print(perguntatxt)
         ação = input("Deseja Escolher entre as alternativas A,B,C e D, pular a pergunta, pedir ajuda, ou parar? ")
         ação = ação.lower()
         valida = False
@@ -407,11 +421,18 @@ while jogar == "sim":
             if ação == "ajuda":
                 if ajudas > 0:
                     if ajudado == "não":
-                        ajuda = "AAA INSERIR FUNÇÃO DA AJUDA"
+                        ajuda = gera_ajuda(pergunta)
+                        print(ajuda)
                         valida = True
                         ajudas -=1
                         ajudado = "sim"
                         print("você possui {} ajudas restantes".format(ajudas))
+                    else:
+                        print('Você ja pediu ajuda para esta questão escolha outra opção')
+                        ação = input("Deseja Escolher entre as alternativas A,B,C e D, pular a pergunta, pedir ajuda, ou parar? ")
+                        ação - ação.lower()
+                        respondido = True
+                        valida = False
             elif ação == "pular":
                 if pulos > 0:
                     alternativa = "pulo"
