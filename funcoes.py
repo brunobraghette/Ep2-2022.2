@@ -200,5 +200,10 @@ def gera_ajuda(questao):
     else:
         return 'DICA:\nOpções certamente erradas: {} | {}'.format(dica[0], dica[1])
 
+from termcolor import colored
+def colorir( oquevaicolorir ,string):
+  colorido = colored(oquevaicolorir, string)
+  return colorido
+
 
 
