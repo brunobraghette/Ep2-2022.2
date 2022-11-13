@@ -288,9 +288,10 @@ quest = [{'titulo': 'Qual o resultado da operação 57 + 32?',
           'correta': 'D'}
         ]
 
-
-
-
+from termcolor import colored
+def colorir( oquevaicolorir ,string):
+  colorido = colored(oquevaicolorir, string)
+  return colorido
 
 questões_são_validas = valida_questoes(quest)
 qvalidas = 0
@@ -298,7 +299,7 @@ for i in questões_são_validas:
     if i != {}:
         qvalidas += 1
 if qvalidas != 0:
-    print('Há questões invalidas em sua base de dados, se elas não forem corrigidas o jogo pode funcionar com defeito')
+    print(colorir('Há questões invalidas em sua base de dados, se elas não forem corrigidas o jogo pode funcionar com defeito','red'))
     
 base = transforma_base(quest)
 
