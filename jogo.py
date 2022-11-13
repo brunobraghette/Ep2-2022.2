@@ -172,5 +172,301 @@ def transforma_base(lista):
                 dicio_final[dificuldade] = [lista[i]]
     return dicio_final
 
+def valida_questao(dicio):
+    diciofinal = {}
+    dicioletras = {}
+    count = 0
+    soma = 0
+    if 'titulo' not in dicio.keys(): 
+        diciofinal['titulo'] = 'nao_encontrado'
+    if 'nivel' not in dicio.keys():
+        diciofinal['nivel'] = 'nao_encontrado'
+    if 'opcoes' not in dicio.keys():
+        diciofinal['opcoes'] = 'nao_encontrado'
+    if 'correta' not in dicio.keys():
+        diciofinal['correta'] = 'nao_encontrado'
+    if len(dicio.keys())!= 4:
+        diciofinal['outro'] ='numero_chaves_invalido'
+
+    if 'titulo' in dicio.keys():
+        tit = dicio['titulo'].strip()
+        if len(tit) == 0:
+            diciofinal['titulo'] = 'vazio'
+    #talvez falte uma questão
+    if 'nivel' in dicio.keys():
+        if dicio['nivel']== 'facil':
+            count+=1
+        if dicio['nivel'] == 'medio':
+            count+=1
+        if dicio['nivel'] == 'dificil':
+            count+=1
+        if count!= 1:
+            diciofinal['nivel'] = 'valor_errado'
+    if 'opcoes' in dicio.keys():
+        if len(dicio['opcoes']) !=4:
+            diciofinal['opcoes'] = 'tamanho_invalido'
+
+        if len(dicio['opcoes']) ==4:
+            for letras, alternativas in dicio['opcoes'].items():
+                if 'A' in letras:
+                    if 'B' in letras:
+                        if 'C' in letras:
+                            if 'D' in letras:
+                                count+=1
+                            else:
+                                diciofinal['opcoes'] = 'chave_invalida_ou_nao_encontrada'
+                x = alternativas.strip()
+                if len(x) == 0:
+                    dicioletras[letras] = 'vazia'
+    for letra, resp in dicioletras.items():
+        if '{}' not in letra or '{}' not in resp:
+            diciofinal['opcoes'] = dicioletras
+    if 'correta' not in dicio.keys():
+        diciofinal['correta'] = 'nao_encontrado'
+    if 'correta' in dicio.keys():
+        if dicio['correta'] == 'A' or dicio['correta'] == 'B' or dicio['correta'] == 'C' or dicio['correta'] == 'D':
+            count+=1
+        else:
+            diciofinal['correta'] = 'valor_errado'
+    return diciofinal
+
+
+def valida_questao(dicio):
+    diciofinal = {}
+    dicioletras = {}
+    count = 0
+    soma = 0
+    if 'titulo' not in dicio.keys(): 
+        diciofinal['titulo'] = 'nao_encontrado'
+    if 'nivel' not in dicio.keys():
+        diciofinal['nivel'] = 'nao_encontrado'
+    if 'opcoes' not in dicio.keys():
+        diciofinal['opcoes'] = 'nao_encontrado'
+    if 'correta' not in dicio.keys():
+        diciofinal['correta'] = 'nao_encontrado'
+    if len(dicio.keys())!= 4:
+        diciofinal['outro'] ='numero_chaves_invalido'
+
+    if 'titulo' in dicio.keys():
+        tit = dicio['titulo'].strip()
+        if len(tit) == 0:
+            diciofinal['titulo'] = 'vazio'
+    #talvez falte uma questão
+    if 'nivel' in dicio.keys():
+        if dicio['nivel']== 'facil':
+            count+=1
+        if dicio['nivel'] == 'medio':
+            count+=1
+        if dicio['nivel'] == 'dificil':
+            count+=1
+        if count!= 1:
+            diciofinal['nivel'] = 'valor_errado'
+    if 'opcoes' in dicio.keys():
+        if len(dicio['opcoes']) !=4:
+            diciofinal['opcoes'] = 'tamanho_invalido'
+
+        if len(dicio['opcoes']) ==4:
+            for letras, alternativas in dicio['opcoes'].items():
+                if 'A' in letras:
+                    if 'B' in letras:
+                        if 'C' in letras:
+                            if 'D' in letras:
+                                count+=1
+                            else:
+                                diciofinal['opcoes'] = 'chave_invalida_ou_nao_encontrada'
+                x = alternativas.strip()
+                if len(x) == 0:
+                    dicioletras[letras] = 'vazia'
+    for letra, resp in dicioletras.items():
+        if '{}' not in letra or '{}' not in resp:
+            diciofinal['opcoes'] = dicioletras
+    if 'correta' not in dicio.keys():
+        diciofinal['correta'] = 'nao_encontrado'
+    if 'correta' in dicio.keys():
+        if dicio['correta'] == 'A' or dicio['correta'] == 'B' or dicio['correta'] == 'C' or dicio['correta'] == 'D':
+            count+=1
+        else:
+            diciofinal['correta'] = 'valor_errado'
+    return diciofinal
+
+def valida_questoes(lista):
+    listafinal = []
+    for i in lista:
+        a = valida_questao(i)
+        listafinal.append(a)
+    return 
+
+
+import random
+def sorteia_questao(dicio, nivel):
+    for dificuldade, questoes in dicio.items():
+        if dificuldade == nivel:
+            return random.choice(questoes)
+    
+import random
+def sorteia_questao_inedida(dicio, nivel, lista):
+    for dificuldade, questoes in dicio.items():
+        if dificuldade == nivel:
+            x = random.choice(questoes)
+            if x in lista:
+                while x in lista:
+                    x = random.choice(questoes)
+            if x not in lista:
+                lista.append(x)
+                return x
+
+
+def questao_para_texto(dicionario, numero):
+    saida = '''
+
+----------------------------------------
+QUESTAO {}
+
+{}
+
+RESPOSTAS:
+A: {}
+B: {}
+C: {}
+D: {}
+
+'''.format(numero, dicionario['titulo'],dicionario['opcoes']['A'], dicionario['opcoes']['B'], dicionario['opcoes']['C'],  dicionario['opcoes']['D']  )
+
+    return saida
+
+
+
+
+
+import random 
+def gera_ajuda(questao):
+    numero = random.randint(1,2)
+    alternativas = []
+    dica = []
+    for alternativa, resposta in questao['opcoes'].items():
+        if alternativa != questao['correta']:
+            alternativas.append(resposta)
+    i = 0 
+
+    while i< numero:
+        sorteio = random.choice(alternativas)
+        dica.append(sorteio)
+        i+=1
+    
+    print(dica)
+
+    if numero == 1:
+        return 'DICA:\nOpções certamente erradas: {} | {}'.format(dica[0],dica[0])
+    else:
+        return 'DICA:\nOpções certamente erradas: {} | {}'.format(dica[0], dica[1])
+
+
+
+
 
 base = transforma_base(quest)
+
+
+nome = input("Qual é o seu nome? ")
+print("Olá, {}, O Jogo funcionará da seguinte maneira: AAA INSERIR MANUAL DO JOGO".format(nome))
+jogar = input('digite "sim" caso queira jogar ')
+jogar = jogar.lower()
+pulos = 3
+ajudas = 2
+acertos = 0
+teste = "não"
+foijogado = "não"
+lista_perguntas = []
+numero = 0
+if jogar == "sim":
+    foijogado = "sim"
+while jogar == "sim":
+    if teste == "sim":
+        pulos = 3
+        ajudas = 2
+        acertos = 0   
+        numero = 0
+    
+    teste = "não"
+    estado = "começo"
+    premios = [0,1000,5000,10000,30000,50000,100000,300000,500000,1000000]
+    respondido = False
+    pergunta = sorteia_questao_inedida(base,random.choice(["facil","medio", "dificil"]), lista_perguntas)
+    lista_perguntas.append(pergunta)
+    resposta = pergunta["correta"].lower()
+    numero += 1
+    pergunta = questao_para_texto(pergunta, numero)
+    ajudado = "não"
+    jogo = "inacabado"
+    while respondido == False:
+        print(pergunta)
+        ação = input("Deseja Escolher entre as alternativas A,B,C e D, pular a pergunta, pedir ajuda, ou parar? ")
+        ação = ação.lower()
+        valida = False
+        while valida == False:
+            if ação == "ajuda":
+                if ajudas > 0:
+                    if ajudado == "não":
+                        ajuda = "AAA INSERIR FUNÇÃO DA AJUDA"
+                        valida = True
+                        ajudas -=1
+                        ajudado = "sim"
+                        print("você possui {} ajudas restantes".format(ajudas))
+            elif ação == "pular":
+                if pulos > 0:
+                    alternativa = "pulo"
+                    acertos -= 1
+                    valida = True
+                    pulos -= 1
+                    respondido = True
+                else:
+                    print("você não possui mais pulos, selecione outra alternativa")
+                    valida = False
+            elif ação == "parar":
+                certeza = input("você tem certeza que deseja parar? ")
+                certeza = certeza.lower()
+                if certeza == "sim":
+                    jogo = "parou"
+                    respondido = True
+                    valida = True
+                    alternativa = "parou"
+            elif ação in ["a","b","c","d"]:
+                valida = True
+                respondido = True
+                if ação == resposta:
+                    alternativa = "correta"
+                    acertos += 1
+                else:
+                    alternativa = "incorreta"
+            else:
+                print("por favor insira uma ação valida")
+                valida = False
+                ação = input("Deseja Escolher entre as alternativas A,B,C e D, pular a pergunta, pedir ajuda, ou parar? ")
+                ação = ação.lower()
+    if alternativa == "correta":
+        print("Você acertou! no momento você possui {}".format(premios[acertos]))
+    elif alternativa == "pulo":
+        acertos += 1
+        print("Você pulou a questão, ainda possui {} pulos restantes".format(pulos))
+    elif alternativa == "incorreta":
+        jogo = "perdeu"
+    if acertos == 9:
+        jogo = "ganhou"
+    if jogo == "ganhou":
+        print("PARABÉNS, VOCÊ GANHOU 1000000!!!!!!!!!")
+        estado = "fim"
+    elif jogo == "parou":
+        print("meus parabens, você parou o jogo tendo {}!".format(premios[acertos]))
+        estado = "fim"
+    elif jogo == "perdeu":
+        print("você perdeu, sinto muito")
+        estado = "fim"
+    if estado == "fim":
+        teste = input("deseja jogar novamente?")
+        teste = teste.lower()
+        jogar = teste
+
+if foijogado == "sim":
+    print("Obrigado por jogar")
+else:
+    print("Ok, caso mude de ideia é só me rodar novamente!")
