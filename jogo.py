@@ -409,7 +409,7 @@ while jogar == "sim":
         print(colorir("meus parabens, você parou o jogo tendo {}!".format(premios[acertos]), 'blue'))
         estado = "fim"
     elif jogo == "perdeu":
-        print(colorir("você perdeu, sinto muito",'orange'))
+        print(colorir("você perdeu, sinto muito",'yellow'))
         estado = "fim"
     if estado == "fim":
         teste = input("deseja jogar novamente?")
@@ -417,6 +417,6 @@ while jogar == "sim":
         jogar = teste
 
 if foijogado == "sim":
-    print("Obrigado por jogar")
+    print(colorir("Obrigado por jogar",'blue'))
 else:
     print("Ok, caso mude de ideia é só me rodar novamente!")
