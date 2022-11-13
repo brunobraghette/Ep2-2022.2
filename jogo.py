@@ -403,13 +403,13 @@ while jogar == "sim":
     if acertos == 9:
         jogo = "ganhou"
     if jogo == "ganhou":
-        print("PARABÉNS, VOCÊ GANHOU 1000000!!!!!!!!!")
+        print(colorir("PARABÉNS, VOCÊ GANHOU 1000000!!!!!!!!!",'green'))
         estado = "fim"
     elif jogo == "parou":
-        print("meus parabens, você parou o jogo tendo {}!".format(premios[acertos]))
+        print(colorir("meus parabens, você parou o jogo tendo {}!".format(premios[acertos]), 'blue'))
         estado = "fim"
     elif jogo == "perdeu":
-        print("você perdeu, sinto muito")
+        print(colorir("você perdeu, sinto muito",'orange'))
         estado = "fim"
     if estado == "fim":
         teste = input("deseja jogar novamente?")
