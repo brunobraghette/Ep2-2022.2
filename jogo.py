@@ -375,7 +375,7 @@ if qvalidas != 0:
 base = transforma_base(quest)
 
 nome = input("Qual é o seu nome? ")
-print("Olá, {}, O Jogo funcionará da seguinte maneira: AAA INSERIR MANUAL DO JOGO".format(nome))
+print("Olá, {}, O Jogo funcionará da seguinte maneira: Você pode pular 3 vezes e pedir duas ajudas! As opções de reposta são A, B, C ou D. Se quiser pular, digite pular, se quiser parar digite 'parar' e se quiser ajuda digite ajuda".format(nome))
 jogar = input('digite "sim" caso queira jogar ')
 jogar = jogar.lower()
 pulos = 3
