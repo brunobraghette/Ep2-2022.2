@@ -134,6 +134,71 @@ def valida_questoes(lista):
     for i in lista:
         a = valida_questao(i)
         listafinal.append(a)
-    return listafinal
+    return 
+
+
+import random
+def sorteia_questao(dicio, nivel):
+    for dificuldade, questoes in dicio.items():
+        if dificuldade == nivel:
+            return random.choice(questoes)
+    
+import random
+def sorteia_questao_inedida(dicio, nivel, lista):
+    for dificuldade, questoes in dicio.items():
+        if dificuldade == nivel:
+            x = random.choice(questoes)
+            if x in lista:
+                while x in lista:
+                    x = random.choice(questoes)
+            if x not in lista:
+                lista.append(x)
+                return x
+
+
+def questao_para_texto(dicionario, numero):
+    saida = '''
+
+----------------------------------------
+QUESTAO {}
+
+{}
+
+RESPOSTAS:
+A: {}
+B: {}
+C: {}
+D: {}
+
+'''.format(numero, dicionario['titulo'],dicionario['opcoes']['A'], dicionario['opcoes']['B'], dicionario['opcoes']['C'],  dicionario['opcoes']['D']  )
+
+    return saida
+
+
+
+
+
+import random 
+def gera_ajuda(questao):
+    numero = random.randint(1,2)
+    alternativas = []
+    dica = []
+    for alternativa, resposta in questao['opcoes'].items():
+        if alternativa != questao['correta']:
+            alternativas.append(resposta)
+    i = 0 
+
+    while i< numero:
+        sorteio = random.choice(alternativas)
+        dica.append(sorteio)
+        i+=1
+    
+    print(dica)
+
+    if numero == 1:
+        return 'DICA:\nOpções certamente erradas: {} | {}'.format(dica[0],dica[0])
+    else:
+        return 'DICA:\nOpções certamente erradas: {} | {}'.format(dica[0], dica[1])
+
 
 
